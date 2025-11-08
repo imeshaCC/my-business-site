@@ -9,8 +9,9 @@ return products.map((p) => ({ slug: p.slug }));
 }
 
 
-export default async function ProductDetail({ params }: { params: { slug: string } }) {
-const product = getProduct(params.slug);
+export default async function ProductDetail({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
+    const product = getProduct(slug);
 if (!product) return notFound();
 
 
